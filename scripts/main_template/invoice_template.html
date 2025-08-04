@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{ document_name }}</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: Arial, Helvetica, sans-serif;
+				letter-spacing: 0.1px;
+			}
+
+			h1 {
+				font-size: 50px;
+				font-family: Arial;
+				font-weight: 500;
+				color: #133659;
+			}
+
+			p {
+				font-size: 15px;
+				color: #133659;
+				font-weight: normal;
+			}
+
+			h2 {
+				font-size: 16px;
+				font-family: Arial;
+				font-weight: 600;
+				color: #133659;
+			}
+
+			span {
+				font-weight: bold;
+			}
+
+			.invoice-header {
+				display: -webkit-box;
+				display: flex;
+				flex-direction: row;
+
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+
+				align-items: top;
+			}
+
+			.mainHeaderContainer {
+				display: -webkit-box;
+				display: flex;
+				flex-direction: row;
+				margin-bottom: 20px;
+			}
+
+			.invNumberContainer {
+				-webkit-box-flex: 1;
+				flex: 1;
+
+				display: -webkit-box;
+				display: flex;
+
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				flex-direction: column;
+
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+
+				-webkit-box-align: end;
+				align-items: end;
+			}
+
+			.clientInfoContainer {
+				margin-top: 20px;
+				
+				display: -webkit-box;
+				display: flex;
+				flex-direction: row;
+
+				width: 100%;
+
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+			}
+
+			.sectionInsideClientInfoContainer { 
+				background-color: #f3f3f3;
+				padding: 25px;
+				/* -webkit-box-flex: 1;
+				flex: 1; */
+
+				/* display: -webkit-box;
+				display: flex;
+
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				flex-direction: column; */
+			}
+
+
+			.paymentInfoContainer {
+				margin-top: 20px;
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				flex-direction: column;
+				border: 1px #133659 solid;
+				padding: 20px 20px;
+			}
+
+			.serviceHeader {
+				margin-top: 20px;
+
+				display: -webkit-box;
+				display: flex;
+
+				flex-direction: row;
+			}
+
+			.serviceHeader > div {
+				background-color: #133659;
+				color: white;
+				padding: 7px 7px;
+				text-align: center;
+			}
+
+			.servicesContainer p {
+				padding: 20px 0px;
+				text-justify: center;
+			}
+
+			.beFlexColumn {
+				display: -webkit-box;
+				display: flex;
+
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				flex-direction: column;
+			}
+
+			.beFlexRow {
+				display: -webkit-box;
+				display: flex;
+			}
+
+			.beFlex1 {
+				-webkit-box-flex: 1;
+				flex: 1;
+			}
+
+			.centerText {
+				display: -webkit-box;
+				display: flex;
+
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}
+
+			.centerTextRight {
+				display: -webkit-box;
+				display: flex;
+
+				-webkit-box-pack: end;
+				-webkit-box-align: center;
+			}
+		</style>
+	</head>
+	<body style="padding: 0px 0px; display: -webkit-box; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;">
+		<div class="mainHeaderContainer">
+			<div
+				style="flex: 1; -webkit-box-flex: 1; line-height: 15px; -webkit-box-pack: justify; justify-content: space-between"
+				class="beFlexColumn"
+			>
+				<img style=" height: 42.64px" src="data:image/png;base64, {{ logoImg }}" />
+				<div style="line-height: 20px;">
+					<p>{{ h_intelica_info1 }}</p>
+					<p>{{ h_intelica_info2 }}</p>
+					<p>{{ h_intelica_info3 }}</p>
+				</div>
+			</div>
+			<div class="invNumberContainer">
+				<h1 style="text-align: right">{{ h_title }}</h1>
+				<div style="display: flex; display: -webkit-box; line-height: 20px; margin-top: 10px;">
+					<div style="margin-right: 7.5px">
+						<p>{{ h_invoice_number }}:</p>
+						<p>{{ h_invoice_date }}:</p>
+						<p>{{ h_payment_terms }}:</p>
+						<p><span>{{ h_total_amount }} {{ currency }}:</span></p>
+					</div>
+					<div style="margin-left: 7.5px">
+						<p>{{ invoice_number }}</p>
+						<p>{{ invoice_date }}</p>
+						<p>{{ payment_terms }}</p>
+						<p><span>{{ total_amount }}</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="border-top: 0.7px solid #8b9bad;" />
+
+		<div class="clientInfoContainer">
+			{% if client_information %}
+			<section style="
+			
+			{% if other_comments %}
+			width: 49.5%;
+			max-width: 49.5%;
+			{% endif %}
+
+			{% if not other_comments %}
+			width: 100%;
+			max-width: 100%;
+			{% endif %}
+			
+			" class="sectionInsideClientInfoContainer">
+				<h2 style="margin-bottom: 6px;">{{ h_client_information }}<h2/>
+				{% for info in client_information %}
+				<p style="line-height: 22px" class="psInsideContainers">{{ info }}</p>
+				{% endfor %}
+			</section>
+			{% endif %}
+
+			{% if other_comments %}
+			<section style="
+			
+			{% if client_information %}
+			width: 49.5%;
+			max-width: 49.5%;
+			{% endif %}
+
+			{% if not client_information %}
+			width: 100%;
+			max-width: 100%;
+			{% endif %}
+
+			" class="sectionInsideClientInfoContainer">
+				<h2 style="margin-bottom: 6px;">{{ h_other_comments }}<h2/>
+				{% for comment in other_comments %}
+				<p style="line-height: 22px" class="psInsideContainers">{{ comment }}</p>
+				{% endfor %}
+			</section>
+			{% endif %}
+		</div>
+
+		<div class="paymentInfoContainer">
+			<h2 style="color: #ED8E45">{{ h_wire_transfer_instructions }}</h2>
+			<div class="beFlexRow" style="margin-top: 8px">
+				<div class="beFlexRow" style="width: 50%;">
+					<section class="beFlexColumn" style="margin-right: 10px">
+						<p style="margin-bottom: 3px"><span>{{ h_beneficiary_name }}:</span></p>
+						<p style="margin-bottom: 3px"><span>{{ h_bank_name }}:</span></p>
+						<p style="margin-bottom: 3px"><span>{{ h_account_number }}:</span></p>
+						<p style="margin-bottom: 3px"><span>{{ h_swift_code }}:</span></p>
+						
+					</section>
+					<section class="beFlexColumn" style="margin-left: 10px">
+						<p style="margin-bottom: 3px">Intelica Corp</p>
+						<p style="margin-bottom: 3px">Bank of America, N.A.</p>
+						<p style="margin-bottom: 3px">3448859771</p>
+						<p style="margin-bottom: 3px">BOFAUS3N</p>
+					</section>
+				</div>
+				<div class="beFlexRow" style="width: 50%;">
+					<section class="beFlexColumn" style="margin-right: 10px">
+						<p style="margin-bottom: 3px"><span>ABA wires:</span></p>
+						<p style="margin-bottom: 3px"><span>ABA electronic:</span></p>
+						<p style="margin-bottom: 3px"><span>{{ h_bank_address }}:</span></p>
+						<p style="margin-bottom: 3px"><span>{{ h_phone_number }}:</span></p>
+					</section>
+					<section class="beFlexColumn" style="margin-left: 10px">
+						<p style="margin-bottom: 3px">026009593</p>
+						<p style="margin-bottom: 3px">063100277</p>
+						<p style="margin-bottom: 3px">222 Broadway, New York, NY 10038</p>
+						<p style="margin-bottom: 3px">+1 302-781-6374</p>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<div class="serviceHeader">
+			<div style="width: 85%; margin-right: 5px">
+				<p style="color: white"><span>{{ h_service_description }}</span></p>
+			</div>
+			<div class="beFlex1">
+				<p style="color: white"><span>{{ currency }}</span></p>
+			</div>
+		</div>
+
+		<div class="servicesContainer">
+			{% for service in services %}
+			<section class="beFlexRow" style="border-bottom: 1px #DEDEDC solid">
+				<div style="width: 4%; color: #133659; font-size: 15px; font-weight: bold;" class="centerText">{{ loop.index }}</div>
+				<p style="width: 81%; margin-right: 5px; padding-left: 8px; padding-right: 8px;">{{ service.description|safe }}</p>
+				<p class="beFlex1 centerTextRight" style="text-align: end;">{{ service.rate }}</p>
+			</section>
+			{% endfor %}
+		</div>
+
+		<!-- <div class="beFlexRow" style="margin-top: 10px">
+			<p style="width: 80%; margin-right: 5px; padding-right: 8px; text-align: end;">Subtotal Issuer {{ currency }}</p>
+			<p class="beFlex1" style="text-align: end;">{{ total_amount }}</p>
+		</div> -->
+		<div class="beFlexRow" style="margin-top: 15px">
+			<p style="width: 85%; margin-right: 5px; padding-right: 8px; text-align: end;"><span>Total {{ currency }}</span></p>
+			<p class="beFlex1" style="text-align: end;"><span>{{ total_amount }}</span></p>
+		</div>
+	</body>
+</html>
