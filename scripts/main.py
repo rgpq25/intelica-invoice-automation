@@ -347,7 +347,7 @@ else:
 printLog(" - Initiating script...")
 
 
-base_month = '202501'   #Base month is July 2024
+base_month = f"202601"   #Base month is July 2024
 gen_mode = sys.argv[2]
 p_current_month = sys.argv[3]
 client_data_path = sys.argv[4] #"./client_data.xlsx"

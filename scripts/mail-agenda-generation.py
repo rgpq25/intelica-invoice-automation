@@ -1,3 +1,4 @@
+from datetime import datetime, date
 import pandas as pd
 import os
 import sys
@@ -200,7 +201,7 @@ for client in clients:
     inv_emis_month = str(inv_emis_month)
 
     current_ = int(inv_curr_month)
-    base_ = 202501
+    base_ = int(f"202601")
     diff = current_ - base_
 
     if int(inv_emis_month[4:]) + diff > 12:
