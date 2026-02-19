@@ -144,6 +144,7 @@ def readClientData(client_data_path, client_master_path, invoice_master_path, in
             'service_description': invoice_data['Service Description'].tolist(),
             'amount': invoice_data['Amount'].tolist(),
             'currency': bank_data['Currency'].values[0],
+            'nc': int(bank_data['NC'].values[0]) if pd.notna(bank_data['NC'].values[0]) else 0,
             # 'mail_recipient': bank_data['Mail Recipient'].values[0]                     if pd.notna(bank_data['Mail Recipient'].values[0]) else '',
             # 'mail_content': bank_data['Mail Content'].values[0]                         if pd.notna(bank_data['Mail Content'].values[0]) else '',
             # 'mail_service_description': bank_data['Mail Service Description'].values[0] if pd.notna(bank_data['Mail Service Description'].values[0]) else '',
@@ -356,6 +357,7 @@ invoice_master_path = sys.argv[6] #"./invoice_master.xlsx"
 # main_folder_path = "C:/Users/renzo/OneDrive - Intelica Corp/TEST/NewTest"
 main_folder_path = sys.argv[7]
 generated_pdf_path = os.path.join(main_folder_path, "INVOICES")
+generated_cn_path = os.path.join(main_folder_path, "CREDIT_NOTES")
 email_schedule_path = os.path.join(main_folder_path, "EMAIL_SCHEDULE.xlsx")
 invoice_history_path = os.path.join(main_folder_path, "INVOICE_HISTORY.xlsx")
 
@@ -395,6 +397,9 @@ client_data = [client for client in client_data if client['invoice_id'] in selec
 
 if not os.path.exists(generated_pdf_path):
     os.makedirs(generated_pdf_path)
+
+if not os.path.exists(generated_cn_path):
+    os.makedirs(generated_cn_path)
 
 if not os.path.exists(generated_templates_path):
     os.makedirs(generated_templates_path)
@@ -508,6 +513,55 @@ for idx, invoice in enumerate(client_data):
     )
 
     printLog(f" - ({(str(idx + 1).zfill(2))}/{len(client_data)}) - SUCCESS - Generated {document_name}")
+
+
+    # ===== CREDIT NOTE GENERATION (only if NC = 1) =====
+    if invoice.get('nc') == 1:
+        cn_invoice_number = invoice["invoice_num"] + 'B'
+
+        cn_services_with_rates = [{
+            'description': s['description'],
+            'rate': '-' + s['rate']
+        } for s in services_with_rates]
+
+        cn_total_amount = '-' + formatNumber(total_amount)
+
+        cn_document_name = 'NC - ' + document_name
+
+        cn_doc_titles = dict(doc_titles)
+        if invoice['language'] == 'ENG':
+            cn_doc_titles['h_title'] = 'Credit Note'
+        elif invoice['language'] == 'ESP':
+            cn_doc_titles['h_title'] = 'Nota de Cr\u00e9dito'
+
+        cn_context = {
+            "document_name":        cn_document_name,
+            "logoImg":              logoImg,
+            "comment_box_height":   f"{comment_box_height}px",
+            "invoice_number":       cn_invoice_number,
+            "invoice_date":         formatDate(p_current_month, invoice['language']),
+            "payment_terms":        invoice["payment_terms"],
+            "client_information":   invoice["client_information"],
+            "other_comments":       invoice["other_comments"],
+            "services":             cn_services_with_rates,
+            "total_amount":         cn_total_amount,
+            "currency":             invoice["currency"],
+        }
+        cn_context.update(cn_doc_titles)
+
+        cn_template_path = os.path.join(generated_templates_path, f"generated_CN_{invoice['invoice_num']}.html")
+        with open(cn_template_path, 'w', encoding="utf-8") as f:
+            f.write(template.render(cn_context))
+
+        pdfkit.from_file(
+            cn_template_path,
+            output_path = os.path.join(generated_cn_path, cn_document_name),
+            configuration = config,
+            options=options
+        )
+
+        printLog(f" - ({(str(idx + 1).zfill(2))}/{len(client_data)}) - SUCCESS - Generated Credit Note {cn_document_name}")
+    # ===== END CREDIT NOTE GENERATION =====
 
 
     amount_for_accountability = invoice['amount']
