@@ -11,8 +11,8 @@ accountability_exception_list = [
     },
     {
         'ID': 'PEIB',
-        'ServiceAmount': '9285.71',
-        'AccountabilityAmount': '6500',
+        'ServiceAmount': '4285.71',
+        'AccountabilityAmount': '3000',
     },
     {
         'ID': 'PESC',

@@ -80,7 +80,7 @@ def transformStringToHTML(bank_code, invoice_num, invoice_month, total_invoice_a
             <p class="editor-paragraph">
                 Vendor name: Intelica Corp <br>
                 Vendor no.: 170426 <br>
-                PO no.: P019212 <br>
+                PO no.: PO134730 <br>
                 Invoice no.: {invoice_num} - {date_string} maintenance fee<br>
                 Amount: {currency} {total_invoice_amount}
             </p>
