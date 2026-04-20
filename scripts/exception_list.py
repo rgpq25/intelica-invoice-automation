@@ -28,5 +28,15 @@ accountability_exception_list = [
         'ID': 'GTBF',
         'ServiceAmount': '2352.94',
         'AccountabilityAmount': '2000',
+    },
+    {
+        'ID': 'GTBA',
+        'ServiceAmount': '5882.35',
+        'AccountabilityAmount': '5000',
+    },
+    {
+        'ID': 'GTBA',
+        'ServiceAmount': '2352.94',
+        'AccountabilityAmount': '2000',
     }
 ]
