@@ -414,9 +414,10 @@ template = jinja2.Environment(
 ).get_template(template_path)
 
 
-logoImg = ""
-with open(os.path.join(current_directory, "resources/logo_intelica_horizontal.png"), "rb") as f:
-  logoImg = base64.b64encode(f.read()).decode()
+def getLogoImg(invoice_id):
+    logo_file = "logo_intelica_corp.png" if invoice_id == 'PEIB' else "logo_intelica_horizontal.png"
+    with open(os.path.join(current_directory, f"resources/{logo_file}"), "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
 config.default_options = {
@@ -435,6 +436,7 @@ printLog(f" - Processing {len(client_data)} invoices for the date of {formatDate
 
 for idx, invoice in enumerate(client_data):
     current_invoice_attributes = invoice_master.get(invoice['invoice_id'])
+    logoImg = getLogoImg(invoice['invoice_id'])
 
     if len(invoice['service_description']) != len(invoice['amount']):
         printLog(f" - ({idx + 1}/{len(client_data)}) - ERROR - Service description and amount length mismatch for invoice {current_invoice_attributes['invoice_num']}")
