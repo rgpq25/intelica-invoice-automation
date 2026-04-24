@@ -9,7 +9,6 @@ import { Checkbox } from './components/ui/Checkbox'
 import { Input } from './components/ui/Input'
 import { transformDate } from './lib/utils'
 import { SelectSingleEventHandler } from 'react-day-picker'
-import { Progress } from './components/ui/Progress'
 import {
   Select,
   SelectTrigger,
@@ -71,14 +70,7 @@ function App(): JSX.Element {
       .includes(clientFilterText.toLowerCase())
   )
 
-  const [maxPrintSteps, setMaxPrintSteps] = useState<number>(0)
   const [isLoadingDependencies, setIsLoadingDependencies] = useState<boolean>(true)
-
-  useEffect(() => {
-    if (isGenerating === true) {
-      setMaxPrintSteps(filteredClients.filter((c) => c.selected === true).length + 3)
-    }
-  }, [isGenerating])
 
   const getAllClients = async (selected_client_master_path) => {
     try {
@@ -431,7 +423,7 @@ function App(): JSX.Element {
                 )}
               </div>
 
-              <div className="flex flex-row items-center gap-4 mt-2">
+              <div className="flex justify-center mt-2">
                 <Button
                   size={'lg'}
                   className="text-lg py-6 w-[220px]"
@@ -448,17 +440,6 @@ function App(): JSX.Element {
                 >
                   Generate Invoices
                 </Button>
-
-                <div className="flex-1 flex flex-row items-center">
-                  <Progress
-                    value={
-                      maxPrintSteps !== 0 ? Math.round((response.length / maxPrintSteps) * 100) : 0
-                    }
-                  />
-                  <p className="font-semibold text-center shrink-0 w-[50px] normal-nums">
-                    {maxPrintSteps !== 0 ? Math.round((response.length / maxPrintSteps) * 100) : 0}%
-                  </p>
-                </div>
               </div>
 
               <div
@@ -516,8 +497,8 @@ function App(): JSX.Element {
                 <Separator orientation="horizontal" className="flex-1" />
               </div>
 
-              <div className="flex flex-row items-center gap-10">
-                <div className="px-2 mt-1 flex flex-col w-[400px]">
+              <div className="flex flex-col gap-6">
+                <div className="px-2 mt-1 flex flex-col w-[400px] self-start">
                   <ParameterSelect className="mt-1" title="Select a date">
                     <DatePickerDemo
                       date={mailDate}
@@ -541,7 +522,7 @@ function App(): JSX.Element {
                   </ParameterSelect>
                 </div>
 
-                <div className="flex">
+                <div className="flex justify-center w-full">
                   <Button
                     isLoading={isGeneratingMail}
                     disabled={

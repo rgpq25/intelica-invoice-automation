@@ -50,7 +50,7 @@ function FilePicker({
 					disabled={isLoading || disabled}
 				>
 					{!isLoading && <Upload className="shrink-0 w-4 h-4 sm:hidden" />}
-					<p className='hidden sm:block'>{isLoading ? 'Leyendo' : isPath ? 'Upload path' : 'Upload file'}</p>
+					<p className='hidden sm:block'>{isLoading ? 'Reading' : isPath ? 'Upload path' : 'Upload file'}</p>
 				</Button>
 			</div>
 

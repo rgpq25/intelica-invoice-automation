@@ -294,9 +294,9 @@
 		<div class="servicesContainer">
 			{% for service in services %}
 			<section class="beFlexRow" style="border-bottom: 1px #DEDEDC solid">
-				<div style="width: 4%; color: #21409A; font-size: 15px; font-weight: bold;" class="centerText">{{ loop.index }}</div>
-				<p style="width: 81%; margin-right: 5px; padding-left: 8px; padding-right: 8px; color: #21409A">{{ service.description|safe }}</p>
-				<p class="beFlex1 centerTextRight" style="text-align: end; color: #21409A">{{ service.rate }}</p>
+				<div style="width: 4%; color: #0F1533; font-size: 15px; font-weight: bold;" class="centerText">{{ loop.index }}</div>
+				<p style="width: 81%; margin-right: 5px; padding-left: 8px; padding-right: 8px; color: #0F1533">{{ service.description|safe }}</p>
+				<p class="beFlex1 centerTextRight" style="text-align: end; color: #0F1533">{{ service.rate }}</p>
 			</section>
 			{% endfor %}
 		</div>
@@ -306,8 +306,8 @@
 			<p class="beFlex1" style="text-align: end;">{{ total_amount }}</p>
 		</div> -->
 		<div class="beFlexRow" style="margin-top: 15px">
-			<p style="width: 85%; margin-right: 5px; padding-right: 8px; text-align: end; color: #21409A"><span>Total {{ currency }}</span></p>
-			<p class="beFlex1" style="text-align: end; color: #21409A"><span>{{ total_amount }}</span></p>
+			<p style="width: 85%; margin-right: 5px; padding-right: 8px; text-align: end; color: #0F1533"><span>Total {{ currency }}</span></p>
+			<p class="beFlex1" style="text-align: end; color: #0F1533"><span>{{ total_amount }}</span></p>
 		</div>
 	</body>
 </html>
