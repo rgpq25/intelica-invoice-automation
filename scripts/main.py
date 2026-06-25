@@ -627,19 +627,19 @@ for idx, invoice in enumerate(client_data):
 
 accountability_path = os.path.join(main_folder_path, f"Accountability - {p_current_month[:4][2:] + p_current_month[4:6]} Monthly Invoices - QB.csv")
 
-#! NOTE: Before we were using encoding='cp1252' on this code block
+#! NOTE: Use utf-8-sig so Excel detects accented characters correctly in CSV files.
 
 if gen_mode == '1':
     print(f" - Generating new accountability file {os.path.basename(accountability_path)}")
-    accountability_df.to_csv(accountability_path, index=False, encoding='utf-8')
+    accountability_df.to_csv(accountability_path, index=False, encoding='utf-8-sig')
 elif gen_mode == '2' and os.path.exists(accountability_path):
     print(f" - Adding new additional invoices to the existing file {os.path.basename(accountability_path)}")
-    old_accoutability_df = pd.read_csv(accountability_path, encoding='utf-8')
+    old_accoutability_df = pd.read_csv(accountability_path, encoding='utf-8-sig')
     old_accoutability_df = pd.concat([old_accoutability_df, accountability_df], ignore_index=True)
-    old_accoutability_df.to_csv(accountability_path, index=False, encoding='utf-8')
+    old_accoutability_df.to_csv(accountability_path, index=False, encoding='utf-8-sig')
 elif gen_mode == '2' and not os.path.exists(accountability_path):
     print(f" - Generating new accountability file {os.path.basename(accountability_path)}")
-    accountability_df.to_csv(accountability_path, index=False, encoding='utf-8')
+    accountability_df.to_csv(accountability_path, index=False, encoding='utf-8-sig')
 
 
 
