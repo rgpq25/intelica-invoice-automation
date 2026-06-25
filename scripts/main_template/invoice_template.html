@@ -114,6 +114,7 @@
 
 			.serviceHeader {
 				margin-top: 20px;
+				page-break-after: avoid;
 
 				display: -webkit-box;
 				display: flex;
@@ -131,6 +132,11 @@
 			.servicesContainer p {
 				padding: 20px 0px;
 				text-justify: center;
+			}
+
+			.serviceRow {
+				page-break-inside: avoid;
+				break-inside: avoid;
 			}
 
 			.beFlexColumn {
@@ -293,7 +299,7 @@
 
 		<div class="servicesContainer">
 			{% for service in services %}
-			<section class="beFlexRow" style="border-bottom: 1px #DEDEDC solid">
+			<section class="beFlexRow serviceRow" style="border-bottom: 1px #DEDEDC solid">
 				<div style="width: 4%; color: #0F1533; font-size: 15px; font-weight: bold;" class="centerText">{{ loop.index }}</div>
 				<p style="width: 81%; margin-right: 5px; padding-left: 8px; padding-right: 8px; color: #0F1533">{{ service.description|safe }}</p>
 				<p class="beFlex1 centerTextRight" style="text-align: end; color: #0F1533">{{ service.rate }}</p>
