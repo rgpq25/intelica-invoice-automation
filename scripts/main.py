@@ -99,7 +99,7 @@ def getInvoiceMemo(invoice_id, language, invoice_month, term_definition):
 
 def formatDateNormal(date_str): #formats a date to dd/MM/yyyy
     date_obj = datetime.strptime(date_str, "%Y%m%d")
-    formatted_date = f"{date_obj.day}/{date_obj.month}/{date_obj.year}"
+    formatted_date = date_obj.strftime("%d/%m/%Y")
     return formatted_date
 
 def formatNumber(number):
